@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 330px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #ff4d6d;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+      min-height: 90px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff3355;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 0.7; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card">
+    <h1 id="title">Hey You ❤️</h1>
+    <p id="text"></p>
+    <button id="btn">Open it 💌</button>
+  </div>
+
+  <script>
+    const steps = [
+      {
+        title: "Hey You ❤️",
+        text: "I made something small for you.\nWill you open it? 🥺",
+        button: "Open it 💌"
+      },
+      {
+        title: "Just a little letter ✨",
+        text: "Every time you smile, my day becomes better.\nYou have no idea how special you are to me 💕",
+        button: "Yes… tell me more 💖"
+      },
+      {
+        title: "From my heart 💗",
+        text: "I don’t promise perfection,\nbut I promise honesty, care,\nand a heart that chooses you every time 🫶",
+        button: "More 🥰"
+      },
+      {
+        title: "One last thing 🌸",
+        text: "No matter where life takes us,\nI hope this page reminds you\nthat you are deeply cared for ❤️",
+        button: "Smile for me 😊"
+      }
+    ];
+
+    let current = 0;
+
+    const title = document.getElementById("title");
+    const text = document.getElementById("text");
+    const btn = document.getElementById("btn");
+    const music = document.getElementById("bgMusic");
+
+    function typeText(content, element) {
+      element.innerHTML = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < content.length) {
+          element.innerHTML += content[i] === "\n" ? "<br>" : content[i];
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 30);
+    }
+
+    function showStep(index) {
+      title.innerText = steps[index].title;
+      typeText(steps[index].text, text);
+      btn.innerText = steps[index].button;
+    }
+
+    btn.addEventListener("click", () => {
+      if (music && music.paused) {
+        music.volume = 0.4;
+        music.play().catch(() => {});
+      }
+
+      current++;
+      if (current < steps.length) {
+        showStep(current);
+      } else {
+        btn.style.display = "none";
+      }
+    });
+
+    showStep(0);
+
+    const hearts = ["❤️", "💖", "💕", "💘", "💗"];
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 600);
+  </script>
+
+</body>
+</html>
