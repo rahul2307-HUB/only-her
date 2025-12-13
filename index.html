@@ -152,15 +152,28 @@
       current++;
       if (current < steps.length) {
         showStep(current);
-      } else {
-        btn.style.display = "none";
+      }else {
+    btn.style.display = "none";
 
-         const finalMessage = document.createElement("div");
+    // Create final message with animation
+    const finalMessage = document.createElement("div");
     finalMessage.style.fontSize = "30px";
     finalMessage.style.marginTop = "20px";
     finalMessage.style.textAlign = "center";
+    finalMessage.style.opacity = "0";           // start hidden
+    finalMessage.style.transform = "scale(0.5)"; // start small
+    finalMessage.style.transition = "all 0.8s ease";
     finalMessage.innerText = "🌸💖🌼🌷✨💞🌺🌟🌹💐";
+
     document.querySelector(".card").appendChild(finalMessage);
+
+    // Animate it in
+    setTimeout(() => {
+        finalMessage.style.opacity = "1";
+        finalMessage.style.transform = "scale(1)";
+    }, 50);
+}
+
       }
     });
 
