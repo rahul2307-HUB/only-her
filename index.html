@@ -74,6 +74,15 @@
       20% { opacity: 0.7; }
       100% { transform: translateY(-110vh); opacity: 0; }
     }
+    .photo {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
   </style>
 </head>
 
@@ -83,6 +92,7 @@
   <audio id="bgm" src="music.mp3" loop></audio>
 
   <div class="card">
+    <img src="pic.jpg" alt="For you" class="photo">
     <h1 id="title">Hey You ❤️</h1>
     <p id="text"></p>
     <button id="btn">Open it 💌</button>
